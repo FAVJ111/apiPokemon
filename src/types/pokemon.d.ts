@@ -24,7 +24,7 @@ declare interface Pokemon {
         slot: number;
         type: NamedAPIResource;
     }[];
-    heught: number;
+    height: number;
     weight: number;
     stats: PokemonStat[];
 }
