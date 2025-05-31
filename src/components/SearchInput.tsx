@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDebounce } from '../hooks/useDebounce';
+import { Form } from 'react-bootstrap';
 
 interface SearchInputProps {
   value: string;
@@ -20,13 +21,17 @@ const SearchInput = ({ value, onChange, placeholder }: SearchInputProps) => {
   }, [value]);
 
   return (
-    <input
-      type="text"
-      className="w-full max-w-md mx-auto block mb-8 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      value={inputValue}
-      onChange={(e) => setInputValue(e.target.value)}
-      placeholder={placeholder}
-    />
+    <div className="position-relative">
+      <Form.Control
+        type="text"
+        size="lg"
+        placeholder={placeholder || "Buscar..."}
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        className="rounded-pill shadow-sm ps-4 py-3 border-2 border-primary"
+      />
+      <i className="bi bi-search position-absolute top-50 end-0 translate-middle-y me-4 text-primary"></i>
+    </div>
   );
 };
 

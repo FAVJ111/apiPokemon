@@ -9,7 +9,7 @@ export const fetchPokemonList = async (
     `${API_BASE_URL}/pokemon?limit=${limit}&offset=${offset}`
   );
   if (!response.ok) throw new Error('Error fetching Pokémon list');
-  return response.json() as Promise<PokemonListResponse>;
+  return response.json();
 };
 
 export const fetchPokemonDetails = async (
@@ -17,5 +17,5 @@ export const fetchPokemonDetails = async (
 ) => {
   const response = await fetch(`${API_BASE_URL}/pokemon/${nameOrId}`);
   if (!response.ok) throw new Error('Error fetching Pokémon details');
-  return response.json() as Promise<Pokemon>;
+  return response.json();
 };

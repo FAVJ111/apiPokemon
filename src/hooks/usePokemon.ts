@@ -12,7 +12,6 @@ export const usePokemonList = (
         ? `${API_BASE_URL}/pokemon?limit=1000`
         : `${API_BASE_URL}/pokemon?limit=${limit}&offset=${(page - 1) * limit}`;
 
-    // Clave de caché única que incluye searchQuery
     const { data, error, isLoading } = useSWR(
         ['pokemonList', page, limit, searchQuery],
         () => fetch(url).then(res => res.json())
@@ -41,8 +40,16 @@ export const usePokemonDetails = (name: string) => {
         name ? ['pokemonDetails', name] : null,
         ([, name]) => fetchPokemonDetails(name)
     );
+    
+    // Ordenar movimientos alfabéticamente
+    const sortedMoves = data?.moves 
+        ? [...data.moves].sort((a, b) => 
+            a.move.name.localeCompare(b.move.name)
+          )
+        : [];
+    
     return {
-        pokemon: data,
+        pokemon: data ? { ...data, moves: sortedMoves } : null,
         isLoading,
         isError: error,
     };
